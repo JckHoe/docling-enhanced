@@ -1,6 +1,6 @@
 # Docling Serve Enhanced - Full Image Support
 
-An enhanced version of Docling Serve with proper image format support including MIME type detection and validation.
+An enhanced version of Docling Serve with proper image format support including MIME type detection and validation. This is based of [Docling-Serve](https://github.com/docling-project/docling-serve)
 
 ## Features
 
@@ -14,6 +14,7 @@ An enhanced version of Docling Serve with proper image format support including 
 ## Supported Formats
 
 ### Images
+
 - PNG (.png)
 - JPEG/JPG (.jpeg, .jpg)
 - GIF (.gif)
@@ -24,6 +25,7 @@ An enhanced version of Docling Serve with proper image format support including 
 - ICO (.ico)
 
 ### Documents
+
 - PDF (.pdf)
 - DOCX (.docx)
 - PPTX (.pptx)
@@ -33,6 +35,7 @@ An enhanced version of Docling Serve with proper image format support including 
 - Text (.txt)
 
 ### Audio
+
 - WAV (.wav)
 - MP3 (.mp3)
 
@@ -57,11 +60,13 @@ docker-compose -f docker-compose.cuda.yml up -d
 ```
 
 **Prerequisites for CUDA support:**
+
 - NVIDIA GPU with CUDA support
 - NVIDIA drivers installed
 - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
 The service will be available at:
+
 - API: http://localhost:5001
 - API Documentation: http://localhost:5001/docs
 - UI: http://localhost:5001/ui
@@ -90,6 +95,7 @@ docker run --gpus all -p 5001:5001 -e DOCLING_SERVE_ENABLE_UI=1 docling-serve-en
 ```
 
 This will:
+
 - Create a virtual environment
 - Detect your CUDA version
 - Install PyTorch with appropriate CUDA support

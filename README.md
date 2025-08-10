@@ -38,11 +38,28 @@ An enhanced version of Docling Serve with proper image format support including 
 
 ## Quick Start
 
-### Using Docker Compose
+### Using Docker Compose (CPU)
 
 ```bash
 docker-compose up -d
 ```
+
+### Using Docker Compose (GPU/CUDA)
+
+For GPU acceleration with NVIDIA CUDA:
+
+```bash
+# Using the convenience script
+./scripts/run-cuda.sh
+
+# Or manually
+docker-compose -f docker-compose.cuda.yml up -d
+```
+
+**Prerequisites for CUDA support:**
+- NVIDIA GPU with CUDA support
+- NVIDIA drivers installed
+- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
 The service will be available at:
 - API: http://localhost:5001
@@ -61,6 +78,23 @@ docker run -p 5001:5001 -e DOCLING_SERVE_ENABLE_UI=1 docling-serve-enhanced
 # Run with GPU support (CUDA)
 docker run --gpus all -p 5001:5001 -e DOCLING_SERVE_ENABLE_UI=1 docling-serve-enhanced
 ```
+
+### Local Installation with CUDA Support
+
+```bash
+# Quick setup with CUDA
+./scripts/setup-cuda-local.sh
+
+# Run with CUDA support
+./scripts/run-local-cuda.sh
+```
+
+This will:
+- Create a virtual environment
+- Detect your CUDA version
+- Install PyTorch with appropriate CUDA support
+- Download EasyOCR models
+- Configure GPU acceleration
 
 ### Using UV (Recommended)
 
@@ -131,6 +165,9 @@ Environment variables:
 - `DOCLING_SERVE_ENABLE_UI`: Enable the Gradio UI (default: 1)
 - `DOCLING_SERVE_MAX_DOCUMENT_SIZE`: Maximum file size in bytes (default: 50MB)
 - `DOCLING_SERVE_MAX_SYNC_WAIT`: Maximum wait time for sync operations (default: 180s)
+- `DOCLING_OCR_ENGINE`: OCR engine to use (default: easyocr)
+- `DOCLING_OCR_USE_GPU`: Enable GPU acceleration for OCR (default: false, true in CUDA image)
+- `CUDA_VISIBLE_DEVICES`: GPU device ID to use (default: 0)
 - `DOCLING_SERVE_ENABLE_CORS`: Enable CORS (default: true)
 
 ## What's Enhanced?

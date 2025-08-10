@@ -1,0 +1,34 @@
+# Core dependencies
+docling-serve[ui]>=1.2.0
+docling>=2.38
+docling-core>=2.44.1
+
+# Web framework
+fastapi[standard]>=0.115
+uvicorn[standard]>=0.29.0
+scalar-fastapi>=1.0.3
+python-multipart>=0.0.6
+
+# Image processing
+pillow>=10.0.0
+imageio>=2.31.0
+opencv-python-headless>=4.8.0
+
+# File type detection
+python-magic>=0.4.27
+python-magic-bin>=0.4.14 ; sys_platform == 'win32'
+
+# OCR engines
+easyocr>=1.7.0
+pytesseract>=0.3.10
+
+# PyTorch with CUDA (will be overridden by index-url in install command)
+# These are placeholders - actual CUDA version installed via:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# Additional GPU-accelerated libraries
+# opencv-contrib-python>=4.8.0  # Optional: includes CUDA modules
+# onnxruntime-gpu>=1.16.0  # Optional: for ONNX model acceleration

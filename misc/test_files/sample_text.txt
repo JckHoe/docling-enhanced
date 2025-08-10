@@ -1,0 +1,19 @@
+Sample Text Document for Docling Testing
+========================================
+
+This is a test document to verify that Docling can process plain text files.
+
+Section 1: Introduction
+-----------------------
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua.
+
+Section 2: Features
+-------------------
+- Feature 1: Text extraction
+- Feature 2: Format conversion
+- Feature 3: Multi-format support
+
+Section 3: Conclusion
+---------------------
+This concludes our test document. Thank you for using Docling!

@@ -12,6 +12,7 @@ from fastapi import (
     BackgroundTasks,
     Depends,
     FastAPI,
+    File,
     Form,
     HTTPException,
     Query,
@@ -431,11 +432,47 @@ def create_app():  # noqa: C901
     async def process_url(
         background_tasks: BackgroundTasks,
         orchestrator: Annotated[BaseOrchestrator, Depends(get_async_orchestrator)],
-        conversion_request: ConvertDocumentsRequest,
+        conversion_request: ConvertDocumentsRequest = None,
+        file: UploadFile = File(None),
     ):
-        task = await _enque_source(
-            orchestrator=orchestrator, conversion_request=conversion_request
-        )
+        # Check if a file was uploaded
+        if file is not None:
+            # Initialize MIME detector
+            mime_detector = MimeDetector()
+            
+            # Read file content to detect MIME type
+            file_content = await file.read()
+            await file.seek(0)  # Reset file pointer
+            
+            mime_type = mime_detector.detect_mime_type(file_content)
+            
+            # Check if it's a PDF
+            if mime_type == "application/pdf":
+                # Handle as PDF file upload
+                options = ConvertDocumentsRequestOptions()
+                target = InBodyTarget()
+                task = await _enque_file(
+                    orchestrator=orchestrator, 
+                    files=[file], 
+                    options=options, 
+                    target=target
+                )
+            else:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Unsupported file type: {mime_type}. Only PDF files are supported."
+                )
+        elif conversion_request is not None:
+            # Handle as source request (JSON)
+            task = await _enque_source(
+                orchestrator=orchestrator, conversion_request=conversion_request
+            )
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Either a file or conversion_request must be provided"
+            )
+        
         completed = await _wait_task_complete(
             orchestrator=orchestrator, task_id=task.task_id
         )

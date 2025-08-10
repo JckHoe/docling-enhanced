@@ -81,4 +81,6 @@ output/
 # Secrets
 .env.local
 .env.*.local
-secrets/
+secrets/-e 
+# UV
+uv.lock

@@ -62,7 +62,23 @@ docker run -p 5001:5001 -e DOCLING_SERVE_ENABLE_UI=1 docling-serve-enhanced
 docker run --gpus all -p 5001:5001 -e DOCLING_SERVE_ENABLE_UI=1 docling-serve-enhanced
 ```
 
-### Using Python
+### Using UV (Recommended)
+
+```bash
+# Install UV if you haven't already
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install dependencies
+uv sync
+
+# Run the server
+uv run uvicorn app:app --host 0.0.0.0 --port 5001
+
+# Or use the provided script
+./scripts/run-local.sh
+```
+
+### Using pip
 
 ```bash
 # Install dependencies
@@ -125,17 +141,47 @@ Environment variables:
 4. **Enhanced Logging**: Detailed logs for debugging file type issues
 5. **Image-Optimized Docker**: Includes all necessary libraries for image processing
 
-## Testing
+## Development
+
+### Setup with UV
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/docling-enhanced.git
+cd docling-enhanced
+
+# Install UV
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Install dependencies including dev dependencies
+uv sync --dev
+
+# Run tests
+uv run pytest tests/
+
+# Run with hot reload
+uv run uvicorn app:app --host 0.0.0.0 --port 5001 --reload
+```
+
+### Testing
 
 Run the test suite:
 
 ```bash
+# With UV
+uv run pytest tests/
+
+# With pip
 python -m pytest tests/
 ```
 
 Test image conversion:
 
 ```bash
+# With UV
+uv run python tests/test_image_support.py
+
+# With pip
 python tests/test_image_support.py
 ```
 
